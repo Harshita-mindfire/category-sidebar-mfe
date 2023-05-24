@@ -5,18 +5,32 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
-import * as React from "react";
+import React, { useEffect } from "react";
 
-const drawerWidth = 240;
+const DRAWER_WIDTH = 240;
+const USER_CAT_PREFERENCE = "userCategoryPreference";
 
 export default function Sidebar({ categories }) {
-  const [selectedItems, setSelectedItems] = React.useState([categories[0]]);
+  const [selectedItems, setSelectedItems] = React.useState(
+    categories.slice(0, 1)
+  );
+
+  useEffect(() => {
+    const userPreference = localStorage.getItem(USER_CAT_PREFERENCE);
+    if (userPreference) {
+      setSelectedItems(userPreference.split(","));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(USER_CAT_PREFERENCE, selectedItems);
+  }, [selectedItems]);
 
   const handleItemClick = (text) => {
     if (selectedItems.includes(text)) {
       setSelectedItems(selectedItems.filter((item) => item !== text));
     } else {
-      setSelectedItems([...selectedItems, text]);
+      setSelectedItems((prevItems) => [...prevItems, text]);
     }
   };
 
@@ -26,9 +40,12 @@ export default function Sidebar({ categories }) {
     <Drawer
       variant="permanent"
       sx={{
-        width: drawerWidth,
+        width: DRAWER_WIDTH,
         flexShrink: 0,
-        [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: "border-box" },
+        [`& .MuiDrawer-paper`]: {
+          width: DRAWER_WIDTH,
+          boxSizing: "border-box",
+        },
       }}
     >
       <Toolbar />

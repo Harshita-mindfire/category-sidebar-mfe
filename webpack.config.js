@@ -44,7 +44,9 @@ module.exports = (_, argv) => ({
       name: "category_sidebar",
       filename: "remoteEntry.js",
       remotes: {},
-      exposes: {},
+      exposes: {
+        "./Sidebar": "./src/App.jsx",
+      },
       shared: {
         ...deps,
         react: {
