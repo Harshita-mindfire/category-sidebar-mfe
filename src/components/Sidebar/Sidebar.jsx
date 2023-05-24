@@ -6,8 +6,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import React, { useEffect } from "react";
+import Styles from "./Sidebar.styles";
 
-const DRAWER_WIDTH = 240;
 const USER_CAT_PREFERENCE = "userCategoryPreference";
 
 export default function Sidebar({ categories }) {
@@ -37,17 +37,7 @@ export default function Sidebar({ categories }) {
   const isItemSelected = (text) => selectedItems.includes(text);
 
   return (
-    <Drawer
-      variant="permanent"
-      sx={{
-        width: DRAWER_WIDTH,
-        flexShrink: 0,
-        [`& .MuiDrawer-paper`]: {
-          width: DRAWER_WIDTH,
-          boxSizing: "border-box",
-        },
-      }}
-    >
+    <Drawer variant="permanent" sx={Styles.drawer}>
       <Toolbar />
       <Box sx={{ overflow: "auto" }}>
         <List>
@@ -64,10 +54,7 @@ export default function Sidebar({ categories }) {
               >
                 <ListItemText
                   primary={text}
-                  primaryTypographyProps={{
-                    align: "center",
-                    fontSize: "0.9rem",
-                  }}
+                  primaryTypographyProps={Styles.primaryTypographyProps}
                 />
               </ListItemButton>
             </ListItem>

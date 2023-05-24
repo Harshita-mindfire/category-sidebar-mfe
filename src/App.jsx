@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./components/Sidebar/Sidebar";
 import axios from "axios";
 
 function App() {
@@ -19,11 +19,7 @@ function App() {
     // };
     // getAllCategories();
   }, []);
-  return (
-    <div>
-      <Sidebar categories={categories} />
-    </div>
-  );
+  return <Sidebar categories={categories} />;
 }
 ReactDOM.render(<App />, document.getElementById("app"));
 export default App;
