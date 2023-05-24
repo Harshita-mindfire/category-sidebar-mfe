@@ -38,7 +38,7 @@ export default function Sidebar({ categories }) {
 
   return (
     <Drawer variant="permanent" sx={Styles.drawer}>
-      <Toolbar />
+      <Toolbar sx={{ paddingTop: "2rem" }} />
       <Box sx={{ overflow: "auto" }}>
         <List>
           {categories.map((text) => (
