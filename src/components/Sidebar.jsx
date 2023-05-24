@@ -10,6 +10,18 @@ import * as React from "react";
 const drawerWidth = 240;
 
 export default function Sidebar({ categories }) {
+  const [selectedItems, setSelectedItems] = React.useState([categories[0]]);
+
+  const handleItemClick = (text) => {
+    if (selectedItems.includes(text)) {
+      setSelectedItems(selectedItems.filter((item) => item !== text));
+    } else {
+      setSelectedItems([...selectedItems, text]);
+    }
+  };
+
+  const isItemSelected = (text) => selectedItems.includes(text);
+
   return (
     <Drawer
       variant="permanent"
@@ -23,11 +35,22 @@ export default function Sidebar({ categories }) {
       <Box sx={{ overflow: "auto" }}>
         <List>
           {categories.map((text) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton sx={{ paddingBottom: "1rem" }}>
+            <ListItem
+              key={text}
+              disablePadding
+              sx={{ paddingBottom: "0.5rem" }}
+            >
+              <ListItemButton
+                sx={{ paddingBottom: "1rem" }}
+                selected={isItemSelected(text)}
+                onClick={() => handleItemClick(text)}
+              >
                 <ListItemText
-                  secondary={text}
-                  secondaryTypographyProps={{ align: "center" }}
+                  primary={text}
+                  primaryTypographyProps={{
+                    align: "center",
+                    fontSize: "0.9rem",
+                  }}
                 />
               </ListItemButton>
             </ListItem>

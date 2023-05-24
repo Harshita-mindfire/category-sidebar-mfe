@@ -6,21 +6,23 @@
     "build:dev": "webpack --mode development",
     "build:start": "cd dist && PORT=5001 npx serve",
     "start": "webpack serve --open --mode development",
-    "start:live": "webpack serve --open --mode development --live-reload --hot"
+    "start:live": "webpack serve --open --mode development --live-reload --hot",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "license": "MIT",
-  "author": {
-    "name": "Jack Herrington",
-    "email": "jherr@pobox.com"
-  },
   "devDependencies": {
     "@babel/core": "^7.15.8",
     "@babel/plugin-transform-runtime": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
     "@babel/preset-react": "^7.14.5",
+    "@typescript-eslint/eslint-plugin": "^5.59.7",
+    "@typescript-eslint/parser": "^5.59.7",
     "autoprefixer": "^10.1.0",
     "babel-loader": "^8.2.2",
     "css-loader": "^6.3.0",
+    "eslint": "^8.41.0",
+    "eslint-plugin-react": "^7.32.2",
     "html-webpack-plugin": "^5.3.2",
     "postcss": "^8.2.1",
     "postcss-loader": "^4.1.0",
