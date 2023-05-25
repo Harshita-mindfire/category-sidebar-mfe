@@ -43,7 +43,9 @@ module.exports = (_, argv) => ({
     new ModuleFederationPlugin({
       name: "category_sidebar",
       filename: "remoteEntry.js",
-      remotes: {},
+      remotes: {
+        news_layout: "news_layout@http://localhost:8081/remoteEntry.js",
+      },
       exposes: {
         "./Sidebar": "./src/App.jsx",
       },

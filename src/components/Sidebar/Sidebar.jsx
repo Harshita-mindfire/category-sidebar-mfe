@@ -7,6 +7,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import React, { useEffect } from "react";
 import Styles from "./Sidebar.styles";
+import PubSub from "news_layout/PubSub";
 
 const USER_CAT_PREFERENCE = "userCategoryPreference";
 
@@ -24,6 +25,7 @@ export default function Sidebar({ categories }) {
 
   useEffect(() => {
     localStorage.setItem(USER_CAT_PREFERENCE, selectedItems);
+    PubSub.fire("agency-category-filter", selectedItems);
   }, [selectedItems]);
 
   const handleItemClick = (text) => {
