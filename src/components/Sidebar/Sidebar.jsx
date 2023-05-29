@@ -1,10 +1,8 @@
 import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import Toolbar from "@mui/material/Toolbar";
 import React, { useEffect } from "react";
 import Styles from "./Sidebar.styles";
 import PubSub from "news_layout/PubSub";
@@ -39,30 +37,23 @@ export default function Sidebar({ categories }) {
   const isItemSelected = (text) => selectedItems.includes(text);
 
   return (
-    <Drawer variant="permanent" sx={Styles.drawer}>
-      <Toolbar sx={{ paddingTop: "2rem" }} />
-      <Box sx={{ overflow: "auto" }}>
-        <List>
-          {categories.map((text) => (
-            <ListItem
-              key={text}
-              disablePadding
-              sx={{ paddingBottom: "0.5rem" }}
+    <Box sx={Styles.box}>
+      <List>
+        {categories.map((text) => (
+          <ListItem key={text} disablePadding sx={Styles.listItem}>
+            <ListItemButton
+              sx={Styles.listItemButton}
+              selected={isItemSelected(text)}
+              onClick={() => handleItemClick(text)}
             >
-              <ListItemButton
-                sx={{ paddingBottom: "1rem" }}
-                selected={isItemSelected(text)}
-                onClick={() => handleItemClick(text)}
-              >
-                <ListItemText
-                  primary={text}
-                  primaryTypographyProps={Styles.primaryTypographyProps}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Box>
-    </Drawer>
+              <ListItemText
+                primary={text}
+                primaryTypographyProps={Styles.primaryTypographyProps}
+              />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
   );
 }

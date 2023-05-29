@@ -1,16 +1,13 @@
 const Styles = {
   fallback: {
     width: 240,
-    flexShrink: 0,
-    [`& .MuiDrawer-paper`]: {
-      width: 240,
-      boxSizing: "border-box",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-    },
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
+  content: { fontSize: "0.8rem" },
+  toolbar: { paddingTop: "2.5rem" },
 };
 
 export default Styles;
