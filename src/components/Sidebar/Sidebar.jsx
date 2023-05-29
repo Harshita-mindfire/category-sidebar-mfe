@@ -13,9 +13,9 @@ const USER_CAT_PREFERENCE = "userCategoryPreference";
 
 export default function Sidebar({ categories }) {
   const [selectedItems, setSelectedItems] = React.useState(
-    categories.slice(0, 1)
+    localStorage.getItem(USER_CAT_PREFERENCE) ||
+      categories.filter((category) => category === "Top Stories")
   );
-
   useEffect(() => {
     const userPreference = localStorage.getItem(USER_CAT_PREFERENCE);
     if (userPreference) {
