@@ -3,17 +3,20 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import React, { useEffect } from "react";
+import Divider from "@mui/material/Divider";
+import Toolbar from "@mui/material/Toolbar";
+import React, { useEffect, useState } from "react";
 import Styles from "./Sidebar.styles";
-import PubSub from "news_layout/PubSub";
+import PubSub from "news_app/PubSub";
 
 const USER_CAT_PREFERENCE = "userCategoryPreference";
 
 export default function Sidebar({ categories }) {
-  const [selectedItems, setSelectedItems] = React.useState(
+  const [selectedItems, setSelectedItems] = useState(
     localStorage.getItem(USER_CAT_PREFERENCE) ||
       categories.filter((category) => category === "Top Stories")
   );
+  const [showReport, setShowReport] = useState(false);
   useEffect(() => {
     const userPreference = localStorage.getItem(USER_CAT_PREFERENCE);
     if (userPreference) {
@@ -32,9 +35,18 @@ export default function Sidebar({ categories }) {
     } else {
       setSelectedItems((prevItems) => [...prevItems, text]);
     }
+    if (showReport) {
+      setShowReport(false);
+    }
   };
 
   const isItemSelected = (text) => selectedItems.includes(text);
+
+  const handleButtonClick = () => {
+    setSelectedItems([]);
+    setShowReport(true);
+    window.location.href = "/report";
+  };
 
   return (
     <Box sx={Styles.box}>
@@ -53,6 +65,22 @@ export default function Sidebar({ categories }) {
             </ListItemButton>
           </ListItem>
         ))}
+      </List>
+      <Divider />
+      <Toolbar />
+      <List>
+        <ListItem disablePadding sx={Styles.listItem}>
+          <ListItemButton
+            sx={Styles.listItemButton}
+            onClick={handleButtonClick}
+            selected={showReport}
+          >
+            <ListItemText
+              primary={"Report"}
+              primaryTypographyProps={Styles.report}
+            />
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );

@@ -44,7 +44,7 @@ module.exports = (_, argv) => ({
       name: "category_sidebar",
       filename: "remoteEntry.js",
       remotes: {
-        news_layout: "news_layout@http://localhost:8081/remoteEntry.js",
+        news_app: "news_app@http://localhost:3000/remoteEntry.js",
       },
       exposes: {
         "./Sidebar": "./src/App.jsx",
