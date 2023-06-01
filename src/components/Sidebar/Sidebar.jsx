@@ -31,7 +31,6 @@ export default function Sidebar({ categories }) {
       setSelectedItems([]);
     } else {
       localStorage.setItem(USER_CAT_PREFERENCE, selectedItems);
-      console.log(`============>`, selectedItems);
       if (selectedItems instanceof Array) {
         PubSub.fire("agency-category-filter", selectedItems);
       }
@@ -56,15 +55,9 @@ export default function Sidebar({ categories }) {
   const handleButtonClick = () => {
     setSelectedItems([]);
     setShowReport(true);
-    // setShowReport(() => {
-    //   return true;
-    // });
-    // window.location.href = "/report";
-    // console.log(`showReport`, showReport);
   };
   
   useEffect(() => {
-    console.log(`showReport`, showReport);
     if (showReport) {
       PubSub.fire("report-routing", showReport);
     }
