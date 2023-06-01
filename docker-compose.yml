@@ -1,0 +1,17 @@
+version: '3.8'
+
+networks:
+  newsforyou:
+
+services:
+  news-sidebar:
+    container_name: news-sidebar-container
+    image: news-sidebar:0.1
+    restart: on-failure
+    build:
+      context: ./
+    ports:
+      - 5001:5001
+    networks:
+      - newsforyou
+

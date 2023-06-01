@@ -25,11 +25,22 @@ export default function Sidebar({ categories }) {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(USER_CAT_PREFERENCE, selectedItems);
-    PubSub.fire("agency-category-filter", selectedItems);
+
+    if (window.location.pathname === "/report") {
+      setShowReport(true);
+      setSelectedItems([]);
+    } else {
+      localStorage.setItem(USER_CAT_PREFERENCE, selectedItems);
+      console.log(`============>`, selectedItems);
+      if (selectedItems instanceof Array) {
+        PubSub.fire("agency-category-filter", selectedItems);
+      }
+    }
+
   }, [selectedItems]);
 
   const handleItemClick = (text) => {
+    PubSub.fire("news-routing");
     if (selectedItems.includes(text)) {
       setSelectedItems(selectedItems.filter((item) => item !== text));
     } else {
@@ -45,8 +56,19 @@ export default function Sidebar({ categories }) {
   const handleButtonClick = () => {
     setSelectedItems([]);
     setShowReport(true);
-    window.location.href = "/report";
+    // setShowReport(() => {
+    //   return true;
+    // });
+    // window.location.href = "/report";
+    // console.log(`showReport`, showReport);
   };
+  
+  useEffect(() => {
+    console.log(`showReport`, showReport);
+    if (showReport) {
+      PubSub.fire("report-routing", showReport);
+    }
+  },[showReport]);
 
   return (
     <Box sx={Styles.box}>
