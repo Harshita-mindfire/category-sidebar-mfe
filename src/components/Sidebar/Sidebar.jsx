@@ -13,7 +13,7 @@ const USER_CAT_PREFERENCE = "userCategoryPreference";
 
 export default function Sidebar({ categories }) {
   const [selectedItems, setSelectedItems] = useState(
-    localStorage.getItem(USER_CAT_PREFERENCE) ||
+    [localStorage.getItem(USER_CAT_PREFERENCE)] ||
       categories.filter((category) => category === "Top Stories")
   );
   const [showReport, setShowReport] = useState(false);
@@ -22,20 +22,18 @@ export default function Sidebar({ categories }) {
     if (userPreference) {
       setSelectedItems(userPreference.split(","));
     }
-  }, []);
-
-  useEffect(() => {
 
     if (window.location.pathname === "/report") {
       setShowReport(true);
       setSelectedItems([]);
-    } else {
-      localStorage.setItem(USER_CAT_PREFERENCE, selectedItems);
-      if (selectedItems instanceof Array) {
-        PubSub.fire("agency-category-filter", selectedItems);
-      }
     }
+  }, []);
 
+  useEffect(() => {
+    if (selectedItems instanceof Array && selectedItems.length > 0) {
+      localStorage.setItem(USER_CAT_PREFERENCE, selectedItems);
+      PubSub.fire("agency-category-filter", selectedItems);
+    }
   }, [selectedItems]);
 
   const handleItemClick = (text) => {
@@ -56,12 +54,11 @@ export default function Sidebar({ categories }) {
     setSelectedItems([]);
     setShowReport(true);
   };
-  
   useEffect(() => {
     if (showReport) {
       PubSub.fire("report-routing", showReport);
     }
-  },[showReport]);
+  }, [showReport]);
 
   return (
     <Box sx={Styles.box}>
