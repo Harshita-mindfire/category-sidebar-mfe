@@ -13,7 +13,7 @@ const USER_CAT_PREFERENCE = "userCategoryPreference";
 
 export default function Sidebar({ categories }) {
   const [selectedItems, setSelectedItems] = useState(
-    [localStorage.getItem(USER_CAT_PREFERENCE)] ||
+    localStorage.getItem(USER_CAT_PREFERENCE) ||
       categories.filter((category) => category === "Top Stories")
   );
   const [showReport, setShowReport] = useState(false);
