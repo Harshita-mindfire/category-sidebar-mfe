@@ -15,7 +15,7 @@ function App() {
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const url = "http://localhost:8082/api/v1/category";
+  const url = "http://news-delivery.localhost/api/v1/category";
 
   useEffect(() => {
     const getAllCategories = async () => {
